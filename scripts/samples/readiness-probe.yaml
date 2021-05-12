@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: web-application
+spec:
+ containers:
+   - name: webapp
+     image: pankajdh/testrepo:myfirstimagev3
+     readinessProbe:
+       httpGet:
+         path: /api/ready
+         port: 8080
+       initialDelaySeconds: 10
+       periodSeconds: 5
+       failureThreshold: 10

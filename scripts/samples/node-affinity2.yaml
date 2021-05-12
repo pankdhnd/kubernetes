@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: red
+spec:
+  selector:
+    matchLabels:
+      app: nginx-red-pod
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx-red-pod
+    spec:
+      containers:
+      - name: nginx-red-container
+        image: nginx
+        resources:
+          limits:
+            memory: "50Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 80
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+           nodeSelectorTerms:
+           -  matchExpressions:
+              -   key: node-role.kubernetes.io/master
+                  operator: Exists
