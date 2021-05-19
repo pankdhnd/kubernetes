@@ -59,3 +59,6 @@ $ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl vers
 13. Done!
 14. If a node is joining the cluster after several days, then the token provided in the command to join might alrady be expired, in that case use below command to generate a fresh token:
 kubeadm token create
+15. Later during the use, if you ever face error like "". then first check the ip address of the master node if it has changed. If not then use below set of commands:
+sudo -i
+swapoff -a
