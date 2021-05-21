@@ -53,7 +53,7 @@ sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --apiserver-advertise-address
 10. Note down the kubeadm join command as it has to be run on the nodes. Do not run the command yet.
 
 11. Now we need to setup a network. Here we are setting up WEAVE:
-$ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 
 12. Now run the kubeadm join command on the nodes. Once done, got to master and run kubectl get nodes to see if the nodes are listed with status Ready.
 13. Done!
@@ -64,3 +64,8 @@ sudo -i
 swapoff -a
 exit
 strace -eopenat kubectl version
+
+16. If you face error like this "The connection to the server localhost:8080 was refused - did you specify the right host or port?", then use below commands on master to resolve it:
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
