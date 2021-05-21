@@ -47,7 +47,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 8. Initialize the cluster
-kubeadm init --pod-network-cidr 10.244.0.0/16 --apiserver-advertise-address=192.168.1.200
+sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --apiserver-advertise-address=192.168.1.200
 
 9. Follow the on screen instructions from the output of command from step-8.
 10. Note down the kubeadm join command as it has to be run on the nodes. Do not run the command yet.
