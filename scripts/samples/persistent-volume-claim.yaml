@@ -5,6 +5,6 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  Resources:
-    Requests:
-      Storage: 500Mi
+  resources:
+    requests:
+      storage: 500Mi
