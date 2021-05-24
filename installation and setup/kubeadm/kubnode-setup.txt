@@ -51,4 +51,8 @@ sudo apt-mark hold kubelet kubeadm kubectl
 8. Now run the kubeadm join command on the nodes. Once done, got to master and run kubectl get nodes to see if the nodes are listed with status Ready.
 Take a note that if the node was alrady configured with some other kubeadm master, then run kubeadm reset command to clear the configuraiton and then execute step-8
 
+kubeadm join 192.168.1.200:6443 --token qoigcw.7w8158m4kp9waay6 \
+	--discovery-token-ca-cert-hash sha256:adbe20112168fbbc2ffd3939df39f1fcacc0cc072da38d3ce86bd5a643e0f7bf
+  
+
 9. Done!
