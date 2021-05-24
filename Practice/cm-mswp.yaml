@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-mswp
+  namespace: website
+data:
+  # property-like keys; each key maps to a simple value
+  wordpress-db-name: "wordpress-db"
+  mysql-db-host: "mysql-db"
+  table-prefix: "wp_"
+
