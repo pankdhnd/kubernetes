@@ -52,9 +52,27 @@ spec:
           protocol: TCP
         resources:
           requests:
-            memory: "100Mi"
-            cpu: "100m"
+            memory: "512Mi"
+            cpu: "200m"
           limits:
-            memory: "150Mi"
-            cpu: "150m" 
-      restartPolicy: Always
+            memory: "512Mi"
+            cpu: "200m"
+        volumeMounts:
+          - mountPath: /var/www/html
+            name: wordpress
+        readinessProbe:
+          tcpSocket:
+            port: 80
+          failureThreshold: 10 
+          initialDelaySeconds: 80
+          periodSeconds: 10 
+      restartPolicy: Always  
+      volumes:
+        - name: wordpress
+          hostPath:
+            path: /data/wordpress
+      #      tolerations:
+      #- key: "app"
+      #  operator: "Equal"
+      #  value: "wordpress"
+

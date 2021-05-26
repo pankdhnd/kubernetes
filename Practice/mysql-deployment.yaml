@@ -46,16 +46,33 @@ spec:
           protocol: TCP
         resources:
           requests:
-            cpu: "100m"
+            cpu: "200m"
             memory: "512Mi"
           limits:
-            cpu: "150m"
-            memory: "512Mi"
+            cpu: "200m"
+            memory: "512Mi"      
         volumeMounts:
         - name: data
           mountPath: /var/lib/mysql
+        readinessProbe:
+          tcpSocket:
+            port: 3306
+          initialDelaySeconds: 120
+          failureThreshold: 10
+          periodSeconds: 30
+        livenessProbe:
+          tcpSocket:
+            port: 3306
+          initialDelaySeconds: 300          
+          periodSeconds: 10          
       volumes:
       - name: data
         hostPath:
           path: /data/mysql
       restartPolicy: Always
+      #      tolerations:
+      #- key: "app"
+      #  operator: "Equal"
+      #  value: "mysql"
+      #  effect: "NoSchedule"
+
