@@ -61,9 +61,20 @@ spec:
           - mountPath: /var/www/html
             name: wordpress
         readinessProbe:
-          tcpSocket:
-            port: 80
+          exec:
+            command:
+              - "curl"
+              - "--fail"
+              - "http://localhost:80/"
           failureThreshold: 10 
+          initialDelaySeconds: 80
+          periodSeconds: 10
+        livenessProbe:
+          exec:
+            command:
+              - "curl"
+              - "--fail"
+              - "http://localhost:80/"           
           initialDelaySeconds: 80
           periodSeconds: 10 
       restartPolicy: Always  
