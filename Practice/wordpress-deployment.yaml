@@ -75,13 +75,22 @@ spec:
               - "curl"
               - "--fail"
               - "http://localhost:80/"           
-          initialDelaySeconds: 80
+          initialDelaySeconds: 120
           periodSeconds: 10 
       restartPolicy: Always  
       volumes:
         - name: wordpress
           hostPath:
             path: /data/wordpress
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - wordpress 
       #tolerations:
       #- key: "app"
       #  operator: "Equal"

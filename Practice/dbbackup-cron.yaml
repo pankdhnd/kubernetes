@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: backup-script
+            image: busybox
+            imagePullPolicy: IfNotPresent
+            volumeMounts:
+              - name: db-backup
+                mountPath: /data/backups
+            command: 
+            - /bin/sh
+            - -c
+            - touch /data/backups/$(date +%y%m%d_%H-%M-%S).txt
+          volumes:
+            - name: db-backup
+              hostPath:
+                path: /data/backups
+          restartPolicy: OnFailure
