@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-nfs
+  namespace: website
+spec:
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 192.168.1.202
+    path: "/nfs/mysql"
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wp-nfs
+  namespace: website
+spec:
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 192.168.1.202
+    path: "/nfs/html"

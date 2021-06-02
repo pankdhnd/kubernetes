@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: website
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+      name: mysql-pod
+      namespace: website
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secret-mysql
+              key: mysql-root-user-pass
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: secret-mysql
+              key: mysql-wordpress-user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secret-mysql
+              key: mysql-wordpress-user-pass
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: cm-mswp
+              key: wordpress-db-name
+        image: mysql:8.0.24
+        name: mysql
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+        volumeMounts:
+        - name: mysql-nfs
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-nfs
+        persistentVolumeClaim:
+          claimName: mysql-nfs
+      restartPolicy: Always
