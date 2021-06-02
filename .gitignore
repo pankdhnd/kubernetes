@@ -5,3 +5,9 @@ Practice/dm.sh
 Practice/cw.sh
 Practice/cm.sh
 Practice/bwpd.yaml
+Practice/test/wp-deploy.yml
+Practice/test/svc.yaml
+Practice/test/secret.yaml
+Practice/test/pvc.yaml
+Practice/test/pv.yaml
+Practice/test/mysql-deploy.yml
